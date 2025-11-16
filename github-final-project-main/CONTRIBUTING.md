@@ -1,1 +1,1 @@
-We welcome contributions in all forms—be it bug reports, bug fixes, documentation updates, enhancements, or new ideas. Your input is valuable and appreciated.
+We warmly welcome all types of contributions—whether it's reporting bugs, fixing issues, improving documentation, adding enhancements, or sharing new ideas. Your contributions are highly valued and greatly appreciated.
