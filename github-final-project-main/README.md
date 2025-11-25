@@ -1,19 +1,26 @@
-Simple Interest Calculator
+Here is a clean, professional, and improved version of your text:
 
-Inputs:
+Simple Interest Calculator
+Inputs
 
 P — Principal Amount
 
 R — Annual Rate of Interest (%)
 
-T — Time Period (in Years)
+T — Time Duration (in Years)
 
+Formula
 
-Formula:
-
-\text{Simple Interest (SI)} = \frac{P \times R \times T}{100}
-
-
----
+Simple Interest (SI) = 
+(
+𝑃
+×
+𝑅
+×
+𝑇
+)
+/
+100
+(P×R×T)/100
 
 © Hasnain Ahmad — All Rights Reserved
