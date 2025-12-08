@@ -1,64 +1,71 @@
 #!/usr/bin/env bash
 #
 # Simple Interest Calculator
-# This script calculates simple interest given principal, annual rate of interest, and time period in years.
-# For sample/educational purposes only – not intended for production use.
+# --------------------------------------------
+# This script calculates simple interest based on:
+#   P — Principal Amount
+#   R — Annual Rate of Interest (%)
+#   T — Time Duration (Years)
 #
-# Author: Upkar Lidder (IBM)
-# Additional Author: Hasnain Ahmad
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Inputs:
-#   P = principal amount
-#   R = annual rate of interest (percentage)
-#   T = time period in years
-# Output:
-#   Simple interest = P × R × T / 100
+# Authors:
+#   Upkar Lidder (IBM)
+#   Hasnain Ahmad
 #
-# All Rights Reserved by Hasnain Ahmad
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Note:
+#   This script is for educational/demo purposes only.
+#   Not intended for production or financial systems.
+#
+# © All Rights Reserved — Hasnain Ahmad
+# --------------------------------------------
 
-set -euo pipefail  # safer bash settings
+set -euo pipefail  # Enable strict bash mode for safety
+
+# ------------------------------
+# Function: validate_input
+# Description: Validate numeric input (positive number)
+# ------------------------------
+validate_input() {
+  local value="$1"
+  local field_name="$2"
+
+  if ! [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+    echo "❌ Error: $field_name must be a valid positive number." >&2
+    exit 1
+  fi
+}
+
+echo "--------------------------------------------"
+echo "       Simple Interest Calculator"
+echo "--------------------------------------------"
 
 # Read principal
-read -rp "Enter the principal amount (P): " principal
+read -rp "Enter the Principal Amount (P): " principal
+validate_input "$principal" "Principal Amount"
 
-# Validate principal is a positive number
-if ! [[ "$principal" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-  echo "Error: Principal must be a valid positive number." >&2
-  exit 1
-fi
+# Read annual rate
+read -rp "Enter the Annual Interest Rate (%) (R): " rate
+validate_input "$rate" "Rate of Interest"
 
-# Read annual interest rate
-read -rp "Enter the annual rate of interest (in %, R): " rate
+# Read time duration
+read -rp "Enter the Time Duration in Years (T): " time_years
+validate_input "$time_years" "Time Duration"
 
-# Validate rate is a positive number
-if ! [[ "$rate" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-  echo "Error: Rate of interest must be a valid positive number." >&2
-  exit 1
-fi
-
-# Read time period in years
-read -rp "Enter the time period in years (T): " time_years
-
-# Validate time period is a positive number
-if ! [[ "$time_years" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-  echo "Error: Time period must be a valid positive number." >&2
-  exit 1
-fi
-
-# Calculate simple interest
+# Calculate SI
 simple_interest=$(awk "BEGIN { printf \"%.2f\", ($principal * $rate * $time_years) / 100 }")
 
 echo
-echo "Calculation result:"
-echo "Principal (P)      : $principal"
-echo "Rate of interest (R): $rate%"
-echo "Time period (T)    : $time_years years"
-echo "Simple interest    : $simple_interest"
+echo "--------------------------------------------"
+echo "               Calculation Result"
+echo "--------------------------------------------"
+echo "Principal (P)          : $principal"
+echo "Rate of Interest (R)   : $rate%"
+echo "Time Duration (T)      : $time_years years"
+echo "--------------------------------------------"
+echo "Simple Interest (SI)   : $simple_interest"
+echo "--------------------------------------------"
 
-# Additional prompt for name (camelCase)
+# Ask for user's name (camelCase)
 read -rp "Enter your name in camelCase: " userName
-
-echo "Thank you, $userName. Script completed."
+echo "Thank you, $userName! Your calculation is complete."
 
 exit 0
