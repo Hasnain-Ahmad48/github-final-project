@@ -1,18 +1,16 @@
-Simple Interest Calculator
-Input Fields
+Required Inputs
 
 P — Principal Amount
 
-R — Annual Interest Rate (%)
+R — Annual Interest Rate (percentage)
 
-T — Time Period (in Years)
+T — Time Duration (in years)
 
-Formula
+Calculation Formula
 
-Simple Interest (SI) is calculated using:
+Simple Interest (SI) is calculated using the following formula:
 
-𝑆
-𝐼
+SI
 =
 𝑃
 ×
@@ -25,5 +23,7 @@ SI=
 P×R×T
 	​
 
+
+This formula helps determine the interest earned on a principal amount over a specified time period at a fixed rate.
 
 © Hasnain Ahmad — All Rights Reserved
