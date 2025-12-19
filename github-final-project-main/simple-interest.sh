@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Simple Interest Calculator (v2.0)
+# Simple Interest Calculator (v2.1)
 # -------------------------------------------------
 # This script calculates Simple Interest using:
 #   P — Principal Amount
@@ -15,8 +15,8 @@
 #   Hasnain Ahmad
 #
 # Disclaimer:
-#   This script is intended for learning purposes only.
-#   Do NOT use in real financial or production systems.
+#   This script is intended for educational purposes only.
+#   Do NOT use in real financial or production environments.
 #
 # © 2025 Hasnain Ahmad — All Rights Reserved
 # -------------------------------------------------
@@ -28,7 +28,7 @@ trap 'echo -e "\n❌ Process interrupted. Exiting safely."; exit 1' INT
 
 # ------------------------------
 # Function: validate_input
-# Purpose : Ensure input is a positive non-zero number
+# Purpose : Ensure input is a positive, non-zero number
 # ------------------------------
 validate_input() {
   local value="$1"
@@ -51,11 +51,35 @@ calculate_interest() {
 # UI Header
 # ------------------------------
 echo "================================================="
-echo "        💰 Simple Interest Calculator v2.0"
+echo "        💰 Simple Interest Calculator v2.1"
 echo "================================================="
 
-# Inputs
+# ------------------------------
+# User Inputs
+# ------------------------------
 read -rp "Enter Principal Amount (P): " principal
 validate_input "$principal" "Principal Amount"
 
-read
+read -rp "Enter Annual Interest Rate (R %): " rate
+validate_input "$rate" "Interest Rate"
+
+read -rp "Enter Time Period (T in years): " time
+validate_input "$time" "Time Period"
+
+# ------------------------------
+# Calculation
+# ------------------------------
+simple_interest=$(calculate_interest "$principal" "$rate" "$time")
+
+# ------------------------------
+# Output
+# ------------------------------
+echo
+echo "📊 Calculation Result"
+echo "------------------------------"
+echo "Principal Amount : $principal"
+echo "Interest Rate    : $rate %"
+echo "Time Period      : $time years"
+echo "------------------------------"
+echo "✅ Simple Interest: $simple_interest"
+echo "================================================="
