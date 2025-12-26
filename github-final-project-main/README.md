@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Simple Interest Calculator (v2.0)
+# Simple Interest Calculator (v2.2)
 # -------------------------------------------------
-# This script calculates Simple Interest using:
+# Calculates Simple Interest using:
 #   P — Principal Amount
 #   R — Annual Interest Rate (%)
 #   T — Time Period (Years)
@@ -15,7 +15,7 @@
 #   Hasnain Ahmad
 #
 # Disclaimer:
-#   This script is intended for learning purposes only.
+#   This script is for educational purposes only.
 #   Do NOT use in real financial or production systems.
 #
 # © 2025 Hasnain Ahmad — All Rights Reserved
@@ -28,7 +28,7 @@ trap 'echo -e "\n❌ Process interrupted. Exiting safely."; exit 1' INT
 
 # ------------------------------
 # Function: validate_input
-# Purpose : Ensure input is a positive non-zero number
+# Purpose : Validate positive, non-zero numeric input
 # ------------------------------
 validate_input() {
   local value="$1"
@@ -51,10 +51,12 @@ calculate_interest() {
 # UI Header
 # ------------------------------
 echo "================================================="
-echo "        💰 Simple Interest Calculator v2.0"
+echo "        💰 Simple Interest Calculator v2.2"
 echo "================================================="
 
-# Inputs
+# ------------------------------
+# User Inputs
+# ------------------------------
 read -rp "Enter Principal Amount (P): " principal
 validate_input "$principal" "Principal Amount"
 
@@ -64,15 +66,19 @@ validate_input "$rate" "Rate of Interest"
 read -rp "Enter Time Period in Years (T): " time
 validate_input "$time" "Time Period"
 
-read -rp "Enter Currency Symbol (e.g. $, Rs): " currency
+read -rp "Enter Currency Symbol (e.g., $, Rs) [default=$]: " currency
 currency=${currency:-$}
 
+# ------------------------------
 # Calculation
+# ------------------------------
 simple_interest=$(calculate_interest "$principal" "$rate" "$time")
 
+# ------------------------------
 # Output
+# ------------------------------
 echo
-echo "------------------- Result ----------------------"
+echo "------------------- 📊 Result --------------------"
 echo "Principal Amount     : $currency$principal"
 echo "Interest Rate        : $rate%"
 echo "Time Period          : $time years"
@@ -80,8 +86,10 @@ echo "-------------------------------------------------"
 echo "Simple Interest (SI) : $currency$simple_interest"
 echo "-------------------------------------------------"
 
-# User info
-read -rp "Enter your name (camelCase preferred): " userName
-echo "✅ Calculation completed successfully, $userName!"
+# ------------------------------
+# User Info
+# ------------------------------
+read -rp "Enter your name (camelCase preferred): " user_name
+echo "✅ Calculation completed successfully, $user_name!"
 
 exit 0
