@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Simple Interest Calculator (v2.2)
+# Simple Interest Calculator (v2.3)
 # -------------------------------------------------
 # Calculates Simple Interest using:
 #   P — Principal Amount
@@ -15,27 +15,27 @@
 #   Hasnain Ahmad
 #
 # Disclaimer:
-#   This script is for educational purposes only.
-#   Do NOT use in real financial or production systems.
+#   This script is intended for educational purposes only.
+#   Do NOT use in real financial or production environments.
 #
 # © 2025 Hasnain Ahmad — All Rights Reserved
 # -------------------------------------------------
 
 set -euo pipefail
 
-# Handle Ctrl+C gracefully
-trap 'echo -e "\n❌ Process interrupted. Exiting safely."; exit 1' INT
+# Graceful exit on Ctrl+C
+trap 'echo -e "\n❌ Operation cancelled by user. Exiting safely."; exit 1' INT
 
 # ------------------------------
 # Function: validate_input
-# Purpose : Validate positive, non-zero numeric input
+# Purpose : Ensure positive, non-zero numeric input
 # ------------------------------
 validate_input() {
   local value="$1"
   local field="$2"
 
   if ! [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]] || (( $(awk "BEGIN {print ($value <= 0)}") )); then
-    echo "❌ Error: $field must be a positive number greater than 0." >&2
+    echo "❌ Invalid Input: $field must be a positive number greater than 0." >&2
     exit 1
   fi
 }
@@ -48,48 +48,48 @@ calculate_interest() {
 }
 
 # ------------------------------
-# UI Header
+# Application Header
 # ------------------------------
 echo "================================================="
-echo "        💰 Simple Interest Calculator v2.2"
+echo "        💰 Simple Interest Calculator v2.3"
 echo "================================================="
 
 # ------------------------------
-# User Inputs
+# Collect User Inputs
 # ------------------------------
 read -rp "Enter Principal Amount (P): " principal
 validate_input "$principal" "Principal Amount"
 
 read -rp "Enter Annual Interest Rate (%) (R): " rate
-validate_input "$rate" "Rate of Interest"
+validate_input "$rate" "Interest Rate"
 
 read -rp "Enter Time Period in Years (T): " time
 validate_input "$time" "Time Period"
 
-read -rp "Enter Currency Symbol (e.g., $, Rs) [default=$]: " currency
+read -rp "Enter Currency Symbol (e.g., $, Rs) [Default: $]: " currency
 currency=${currency:-$}
 
 # ------------------------------
-# Calculation
+# Perform Calculation
 # ------------------------------
 simple_interest=$(calculate_interest "$principal" "$rate" "$time")
 
 # ------------------------------
-# Output
+# Display Result
 # ------------------------------
 echo
 echo "------------------- 📊 Result --------------------"
-echo "Principal Amount     : $currency$principal"
-echo "Interest Rate        : $rate%"
-echo "Time Period          : $time years"
+printf "Principal Amount     : %s%s\n" "$currency" "$principal"
+printf "Interest Rate        : %s%%\n" "$rate"
+printf "Time Period          : %s years\n" "$time"
 echo "-------------------------------------------------"
-echo "Simple Interest (SI) : $currency$simple_interest"
+printf "Simple Interest (SI) : %s%s\n" "$currency" "$simple_interest"
 echo "-------------------------------------------------"
 
 # ------------------------------
-# User Info
+# User Confirmation
 # ------------------------------
 read -rp "Enter your name (camelCase preferred): " user_name
-echo "✅ Calculation completed successfully, $user_name!"
+echo "✅ Calculation completed successfully. Thank you, $user_name!"
 
 exit 0
