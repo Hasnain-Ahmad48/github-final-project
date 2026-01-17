@@ -1,34 +1,40 @@
 #!/usr/bin/env bash
 #
-# Simple Interest Calculator (v2.4)
+# Simple Interest Calculator (v2.5)
 # -------------------------------------------------
+# Calculates Simple Interest and Total Amount
+#
 # Formula:
-#   SI = (P × R × T) / 100
-#   Total Amount = P + SI
+#   Simple Interest (SI) = (P × R × T) / 100
+#   Total Amount        = P + SI
 #
 # Authors:
 #   Upkar Lidder (IBM)
 #   Hasnain Ahmad
 #
 # Disclaimer:
-#   Educational use only.
+#   This script is for educational purposes only.
+#   Not intended for financial or production use.
 # -------------------------------------------------
 
 set -euo pipefail
 
-trap 'echo -e "\n❌ Interrupted. Exiting safely."; exit 1' INT
+# Handle Ctrl+C gracefully
+trap 'echo -e "\n❌ Operation cancelled by user. Exiting safely."; exit 1' INT
 
-# ------------------------------
-# Validate numeric input
-# ------------------------------
+# -------------------------------------------------
+# Function: validate_input
+# Purpose : Validate positive numeric input
+# -------------------------------------------------
 validate_input() {
   local value="$1"
-  [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]] && awk "BEGIN{exit !($value>0)}"
+  [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]] && awk "BEGIN { exit !($value > 0) }"
 }
 
-# ------------------------------
-# Read input safely (retry)
-# ------------------------------
+# -------------------------------------------------
+# Function: read_input
+# Purpose : Read input with retry until valid
+# -------------------------------------------------
 read_input() {
   local prompt="$1"
   local field="$2"
@@ -45,39 +51,39 @@ read_input() {
   done
 }
 
-# ------------------------------
-# Calculate interest
-# ------------------------------
+# -------------------------------------------------
+# Function: calculate_interest
+# -------------------------------------------------
 calculate_interest() {
   awk "BEGIN { printf \"%.2f\", ($1 * $2 * $3) / 100 }"
 }
 
-# ------------------------------
-# Header
-# ------------------------------
+# -------------------------------------------------
+# UI Header
+# -------------------------------------------------
 echo "================================================="
-echo "        💰 Simple Interest Calculator v2.4"
+echo "        💰 Simple Interest Calculator v2.5"
 echo "================================================="
 
-# ------------------------------
-# Inputs
-# ------------------------------
-principal=$(read_input "Enter Principal Amount (P): " "Principal")
-rate=$(read_input "Enter Annual Interest Rate (%) (R): " "Rate")
-time=$(read_input "Enter Time Period in Years (T): " "Time")
+# -------------------------------------------------
+# User Inputs
+# -------------------------------------------------
+principal=$(read_input "Enter Principal Amount (P): " "Principal Amount")
+rate=$(read_input "Enter Annual Interest Rate (%) (R): " "Interest Rate")
+time=$(read_input "Enter Time Period in Years (T): " "Time Period")
 
 read -rp "Enter Currency Symbol [Default: $]: " currency
 currency=${currency:-$}
 
-# ------------------------------
+# -------------------------------------------------
 # Calculations
-# ------------------------------
+# -------------------------------------------------
 simple_interest=$(calculate_interest "$principal" "$rate" "$time")
 total_amount=$(awk "BEGIN { printf \"%.2f\", $principal + $simple_interest }")
 
-# ------------------------------
+# -------------------------------------------------
 # Output
-# ------------------------------
+# -------------------------------------------------
 echo
 echo "------------------- 📊 Result --------------------"
 printf "Principal Amount     : %s%s\n" "$currency" "$principal"
@@ -88,10 +94,12 @@ printf "Simple Interest      : %s%s\n" "$currency" "$simple_interest"
 printf "Total Amount         : %s%s\n" "$currency" "$total_amount"
 echo "-------------------------------------------------"
 
-# ------------------------------
+# -------------------------------------------------
 # User Confirmation
-# ------------------------------
+# -------------------------------------------------
 read -rp "Enter your name: " user_name
-echo "✅ Calculation completed successfully, $user_name!"
+echo
+echo "✅ Calculation completed successfully."
+echo "Thank you for using the calculator, $user_name!"
 
 exit 0
