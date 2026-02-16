@@ -101,5 +101,6 @@ read -rp "Enter your name: " user_name
 echo
 echo "✅ Calculation completed successfully."
 echo "Thank you for using the calculator, $user_name!"
-this file is been edited
+this file is been edited 
+this file is been edited 
 exit 0
