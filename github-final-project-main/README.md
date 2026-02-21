@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+hi#!/usr/bin/env bash
 #
 # Simple Interest Calculator (v2.5)
 # -------------------------------------------------
@@ -57,7 +57,7 @@ read_input() {
 calculate_interest() {
   awk "BEGIN { printf \"%.2f\", ($1 * $2 * $3) / 100 }"
 }
-
+good guys did did Rick host classic stupid did so I'd do if do if so if ch if do if do os sh is so keep karo hasnain is nice guy but the thing is he
 # -------------------------------------------------
 # UI Header
 # -------------------------------------------------
